@@ -1,0 +1,5 @@
+'use client';
+import { useState } from 'react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { navigation, site } from '@/data/site';
+export function Header() { const [open,setOpen] = useState(false); return <header><a href="#top" className="brand" aria-label={`${site.name} トップ`}>{site.name}<small>{site.subtitle}</small></a><nav className="desktop-nav" aria-label="メインナビゲーション">{navigation.map(([id,label])=><a key={id} href={`#${id}`}>{label}</a>)}<a className="nav-reserve" href="#reservation">Reservation <ArrowUpRight size={13}/></a></nav><button className="mobile-toggle icon-button" aria-label={open?'メニューを閉じる':'メニューを開く'} aria-expanded={open} aria-controls="mobile-nav" onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</button>{open&&<nav id="mobile-nav" className="mobile-nav" aria-label="モバイルナビゲーション">{[...navigation,['reservation','Reservation']].map(([id,label])=><a key={id} href={`#${id}`} onClick={()=>setOpen(false)}>{label}<ArrowUpRight size={16}/></a>)}</nav>}</header>; }
