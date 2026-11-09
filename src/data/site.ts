@@ -5,7 +5,7 @@ export const site = {
   tagline: 'A little beauty,\na little happiness.',
   subcopy: '指先に、あなたらしい余白を。',
   concept: ['日々にそっとなじむ色。ふと目に留まる、小さなきらめき。', 'mellow は、あなたの「好き」を一緒に見つける\nプライベートなネイルアトリエです。', '爪のかたちや暮らしに寄り添いながら、\nひとつひとつ、丁寧に。\n毎日が少しうれしくなる指先をお届けします。'],
-  profile: { name: 'Haruka', role: 'Nail artist', career: 'サロン勤務を経て、個人ネイリストとして活動。', specialty: '肌になじむカラーと、繊細なニュアンスアートが得意です。', message: 'お話ししながら、今の気分にぴったりのデザインを。初めての方も、どうぞ気軽にお越しください。', image: '/images/profile/atelier.svg' },
+  profile: { name: 'Kotomi', role: 'Nail artist', career: 'サロン勤務を経て、個人ネイリストとして活動。', specialty: '肌になじむカラーと、繊細なニュアンスアートが得意です。', message: 'お話ししながら、今の気分にぴったりのデザインを。初めての方も、どうぞ気軽にお越しください。', image: '/images/profile/atelier.svg' },
   salon: { place: 'シェアサロン内・専用施術スペース（仮）', area: '東京都内（エリア未設定）', station: '最寄り駅は準備中', days: '完全予約制・不定休（仮）', hours: '10:00 – 19:00（仮）', access: '住所・地図は未設定です。正式なご案内までお待ちください。', note: '店舗の一角を借りて活動する個人ネイリストです。店舗全体の運営・お問い合わせ窓口とは異なります。' },
 };
 export const navigation = [['concept','Concept'],['gallery','Gallery'],['menu','Menu'],['profile','Profile'],['salon','Salon info']] as const;

@@ -1,0 +1,44 @@
+.demo{container-type:inline-size;color:#3b2833;background:#fffaf7;border:1px solid #e9dce1;overflow-wrap:anywhere}
+.body{padding:clamp(10px,4cqi,30px)}
+.intro{margin-bottom:18px;padding-bottom:15px;border-bottom:1px solid #e9dce1}
+.intro span,.eyebrow{color:#795468;font-size:.69rem;font-weight:700;letter-spacing:.13em}
+.intro h3,.dialog h3{font:600 clamp(1.2rem,4cqi,1.8rem) 'Yu Mincho',serif;margin:5px 0}
+.intro p,.card p{margin:5px 0;color:#694f5c;font-size:.86rem}
+.demo button,.dialog button,.external{display:inline-flex;justify-content:center;align-items:center;gap:6px;min-height:44px;padding:5px 11px;border:1px solid #dbc9d2;border-radius:6px;background:#fff;color:#533748;cursor:pointer;font-size:.82rem;text-align:center}
+.demo button:active,.dialog button:active{transform:scale(.97)}
+.demo button:focus-visible,.dialog button:focus-visible,.external:focus-visible,.demo select:focus-visible,.demo textarea:focus-visible{outline:2px solid #8f385e;outline-offset:2px}
+.demo button[aria-pressed=true],.demo button[aria-selected=true],.demo .primary,.dialog .primary{background:#63394e;color:#fff;border-color:#63394e}
+.demo button:disabled{opacity:.55;cursor:default}
+.row,.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bar{justify-content:space-between;margin:10px 0}
+.bar button{min-width:44px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(7px,2cqi,16px);animation:appear .24s ease-out}
+@container (min-width:510px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@container (min-width:720px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.card{min-width:0;background:#fff;border:1px solid #ecdee4;border-radius:9px;overflow:hidden}
+.card h4{font-size:.92rem;line-height:1.4;margin:3px 0}
+.cardText{padding:clamp(6px,1.5cqi,12px)}
+.art{display:block;width:100%;height:auto;aspect-ratio:6/5;object-fit:cover;background:#f1e6e9}
+.demo .artButton,.dialog .artButton{display:block;width:100%;padding:0;border:0;border-radius:0;overflow:hidden}
+.artButton:focus-visible{outline-offset:-4px!important}
+.empty,.notice,.season{padding:12px;background:#f5ebef;color:#563648;border-radius:8px}
+.season{margin:10px 0;animation:appear .24s ease-out}
+.swatch{display:inline-block;width:15px;height:15px;border-radius:50%;border:1px solid #aa909e;flex:none}
+.dialog{position:fixed;inset:0;margin:auto;width:min(92vw,580px);max-height:88dvh;padding:0;border:1px solid #d6bbc9;border-radius:13px;background:#fffaf7;color:#3b2833;overscroll-behavior:contain;animation:appear .18s ease-out}
+.dialog::backdrop{background:#2d1c2ac7}
+.dialogBody{padding:clamp(10px,4vw,24px)}
+.dialog .art{max-height:57dvh;object-fit:contain}
+.swipe{touch-action:pan-y pinch-zoom}
+.thumbs button{min-width:50px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.facts div{padding:8px;background:#f5ebef;border-radius:5px}.facts dt{font-weight:700}.facts dd{margin:3px 0 0}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pair figure{margin:0}.pair figcaption{padding:8px;background:#f5ebef;font-size:.84rem}
+.ranking{padding:0;list-style:none;display:grid;gap:8px}.rank{display:grid;grid-template-columns:32px minmax(50px,100px) minmax(0,1fr);gap:8px;align-items:center;padding:7px;border:1px solid #eadce3;border-radius:8px}.rank[data-podium=true]{background:#f6e9ee;border-color:#d9bbc9}.rank b{text-align:center;font-size:1.1rem}
+.video{display:block;width:100%;background:#3b2833;border-radius:8px}
+.demo select,.demo textarea{width:100%;padding:9px;border:1px solid #dbc9d2;background:#fff;color:inherit;border-radius:6px;min-height:44px}
+.demo textarea{min-height:100px}
+.quiz{padding:0;border:0;margin:12px 0;min-width:0}.quiz legend{font-weight:700;margin-bottom:8px}.progress{width:100%;accent-color:#79465e}
+.heart[aria-pressed=true] svg{fill:currentColor;animation:pop .22s ease-out}
+@keyframes appear{from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes pop{50%{transform:scale(1.23)}}
+@media(prefers-reduced-motion:reduce){.demo *,.dialog,.dialog *{animation:none!important;transition:none!important}.demo button:active,.dialog button:active{transform:none}}

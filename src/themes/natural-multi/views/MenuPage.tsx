@@ -1,0 +1,5 @@
+import { menus } from '@/data/site';
+import { PageTitle,PageLink } from '@/themes/natural-multi/Shared';
+import styles from '@/themes/natural-multi/NaturalMulti.module.css';
+
+export function MenuPage({root}:{root?:string}){return <div className={styles.page}><PageTitle root={root} number="2" title="Menu & price" jp="あなたらしさを彩るメニュー"/><p className={styles.lead}>爪をいたわる丁寧なケアと、日常になじむデザインを。<br/>気になることは、施術前にご相談ください。</p><div className={styles.menuList}>{menus.map((m,i)=><article className={styles.menuRow} key={m.name}><span>0{i+1}</span><div><h2>{m.name}</h2><small>{m.jp}</small><p>{m.description}</p></div><div><strong>¥{m.price.toLocaleString('ja-JP')}{m.name==='Design Art'?'〜':''}</strong><small>{m.duration}</small></div></article>)}</div><p className={styles.note}>すべて税込・仮料金です。正式なメニュー・価格・所要時間は公開前に確定します。</p><aside className={styles.care}><span>BEFORE YOUR VISIT</span><h2>ご予約前に</h2><p>デザインやオフの有無により所要時間が変わります。実際の料金・メニュー・予約条件は、正式公開後の HOT PEPPER Beauty でご確認ください。現在はサンプルのため予約を受け付けていません。</p></aside><div className={styles.next}><PageLink root={root} href="gallery/">ネイルギャラリーを見る</PageLink></div></div>;}
