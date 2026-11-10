@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { features,getFeature,getCategory,statusLabels,difficultyLabels } from '@/features/catalog/data';
+import { features,legacyFeatureIds,getFeature,getCategory,statusLabels,difficultyLabels } from '@/features/catalog/data';
 import { SelectFeature } from '@/features/catalog/Controls';
 import { Preview } from '@/features/catalog/Preview';
 import s from '@/features/catalog/catalog.module.css';
 type Props={params:Promise<{featureId:string}>};
 export const dynamicParams=false;
-export function generateStaticParams(){return features.map(f=>({featureId:f.id}))}
-export async function generateMetadata({params}:Props){const f=getFeature((await params).featureId);return f?{title:f.name,description:f.summary}:{}}
+export function generateStaticParams(){return [...features.map(feature => feature.id), ...legacyFeatureIds].map(featureId => ({featureId}))}
+export async function generateMetadata({params}:Props){const {featureId}=await params;const f=getFeature(featureId);return f?{title:f.name,description:f.summary,...(featureId!==f.id?{alternates:{canonical:'https://public-sample.vercel.app/features/'+f.id+'/'}}:{})}:{}}
 export default async function Page({params}:Props){
  const f=getFeature((await params).featureId);if(!f)notFound();
  const c=getCategory(f.category);

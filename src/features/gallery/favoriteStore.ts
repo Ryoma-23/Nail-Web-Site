@@ -15,7 +15,8 @@ function read() {
   try {
     const raw = localStorage.getItem(key);
     if (raw !== last) {
-      const value: unknown = JSON.parse(raw ?? '[]');
+      let value: unknown;
+      try { value = JSON.parse(raw ?? '[]'); } catch { value = []; }
       cached = Array.isArray(value) ? sampleDesigns.filter(item => value.includes(item.id)).map(item => item.id) : empty;
       last = raw;
     }
@@ -42,8 +43,15 @@ export function useFavorites() {
 }
 
 export function toggleFavorite(id: string) {
+  if (!sampleDesigns.some(item => item.id === id)) return;
   const current = read();
-  cached = current.includes(id) ? current.filter(item => item !== id) : [...current, id];
+  save(current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
+}
+
+export function clearFavorites() { save(empty); }
+
+function save(ids: readonly string[]) {
+  cached = ids;
   try {
     const raw = JSON.stringify(cached);
     localStorage.setItem(key, raw);

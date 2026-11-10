@@ -1,6 +1,6 @@
 'use client';
 import { useSyncExternalStore } from 'react';
-import { getFeature } from './data';
+import { canonicalFeatureId, getFeature } from './data';
 const key='mellow.feature-selection.v1', event='mellow:feature-selection';
 let cached:readonly string[]=[];
 let last:string|null|undefined;
@@ -9,7 +9,7 @@ function read(){
  try{
   const raw=localStorage.getItem(key);
   if(raw!==last){let ids:unknown;try{ids=JSON.parse(raw??'[]')}catch{ids=[]}
-   cached=Array.isArray(ids)?[...new Set(ids.filter((id):id is string=>typeof id==='string'&&!!getFeature(id)))]:[];
+   cached=Array.isArray(ids)?[...new Set(ids.filter((id):id is string=>typeof id==='string'&&!!getFeature(id)).map(canonicalFeatureId))]:[];
    last=raw;
   }
  }catch{}
@@ -22,5 +22,5 @@ function subscribe(cb:()=>void){
 }
 function save(ids:readonly string[]){cached=ids;try{last=JSON.stringify(ids);localStorage.setItem(key,last)}catch{}window.dispatchEvent(new Event(event))}
 export function useSelection(){return useSyncExternalStore(subscribe,read,()=>empty)}
-export function toggleSelection(id:string){if(!getFeature(id))return;const ids=read();save(ids.includes(id)?ids.filter(v=>v!==id):[...ids,id])}
+export function toggleSelection(id:string){const feature=getFeature(id);if(!feature)return;const ids=read();save(ids.includes(feature.id)?ids.filter(v=>v!==feature.id):[...ids,feature.id])}
 export function clearSelection(){save([])}

@@ -91,14 +91,14 @@ const groups: Group[] = [
   ]},
   {id:"I",name:"診断・AI・インタラクティブ",icon:"Sparkles",operator:false,rows:[
     ["ネイルデザイン診断","回答に応じて似合いそうな作品を紹介する。",1,false,false],
-    ["カラー相性診断","好みの色や肌の印象から候補色を案内する。",1,false,false],
+    ["カラー相性診断","好みの色・利用場面・雰囲気に合わせた配色を提案する。",1,false,false],
     ["デザインルーレット","作品候補をランダムに選ぶ。",1,false,false],
     ["デザイン比較","候補の画像を並べて違いを確認する。",1,false,false],
     ["お気に入りボード","選んだ作品をひとつのボードにまとめる。",1,false,false],
-    ["画像類似検索","参考画像に見た目が近い作品を探す。",3,true,false],
-    ["AIネイル相談","質問に対しAIで参考情報を案内する。",3,true,true],
-    ["AIデザイン提案","希望の色や雰囲気をもとにAIで案を出す。",3,true,true],
-    ["バーチャルネイル試着","手の画像にネイルのイメージを重ねる。",3,true,false],
+    ["ネイル画像検索","参考画像の代表色をブラウザ内で抽出し、色が近い作品を探す。",3,false,false],
+    ["AIネイル相談","ルールベースのチャットで、メニューやFAQを案内するデモ。",3,false,false],
+    ["AIデザイン提案","色や予算などの希望条件を使い、掲載済みの作品を提案するデモ。",3,false,false],
+    ["バーチャルネイル試着","ブラウザ内で手の画像にネイルを重ね、一本ずつ調整する。",3,false,false],
     ["3Dネイルビュー","立体モデルを回して仕上がりを見る。",3,false,false],
     ["カラーパレット生成","選んだ色から組み合わせを作る。",1,false,false],
     ["ネイルデザインメーカー","色やパーツを組み合わせて案を作る。",3,false,false]
@@ -174,12 +174,69 @@ export const categories = groups.map(({id,name,icon,operator,rows})=>({id,name,i
 const demoIds = new Set([
   'G01', 'G02', 'G03', 'G04', 'G05', 'G06', 'G07', 'G08', 'G09', 'G10', 'G11', 'G12', 'G13', 'G14',
   'M01', 'M02', 'M03', 'M04', 'M05', 'M06', 'M07', 'M08', 'M09', 'M10', 'M11', 'M12',
+  'P01', 'P02', 'P03', 'P04', 'P11',
+  'P05', 'P06', 'P07', 'P08', 'P14',
+  'P09', 'P10', 'P12', 'P13',
+  'B01', 'B02', 'B03', 'B04', 'B07', 'B14',
+  'B05', 'B06', 'B12', 'B13', 'B15',
+  'B08', 'B09', 'B10', 'B11',
+  'I01', 'I02', 'I03', 'I04', 'I05',
+  'I06', 'I07', 'I08',
+  'I09', 'I10',
+  'I11', 'I12',
+  'A01', 'A02', 'A03', 'A04', 'A05', 'A06', 'A07', 'A08', 'A09', 'A10',
+  'A11', 'A12', 'A13', 'A14', 'A15', 'A16', 'A17', 'A18',
+  'A19', 'A20', 'A21', 'A22', 'A28', 'A31', 'A32',
+  'A23', 'A24', 'A25', 'A26', 'A27', 'A29', 'A30',
+  'C01', 'C02', 'C03', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10', 'C11', 'C12',
+  'O01', 'O02', 'O03', 'O04', 'O05', 'O06', 'O07', 'O08', 'O09', 'O10', 'O11', 'O12', 'O13', 'O14', 'O15',
 ]);
-export const features: Feature[] = groups.flatMap((g,i)=>g.rows.map(([name,summary,difficulty,requiresBackend,requiresExternalService],j)=>{const id=g.id+String(j+1).padStart(2,'0');const hasDemo=demoIds.has(id);return {id,name,summary,category:g.id,description:summary,benefits:[situations[i]],difficulty,requiresBackend,requiresExternalService,status:hasDemo?'demo':'planned',previewKey:hasDemo?id:undefined}}));
-export const getFeature = (id:string) => features.find(f=>f.id===id);
+const operationsBenefits = [
+  'サイトへの訪問が増えた時期を把握すること',
+  '予約ボタンが押されやすい位置を見つけること',
+  '次に紹介する作品を決めること',
+  'SNSや紙の案内のどこから訪問が来ているかを知ること',
+  '利用者がよく行う操作を把握すること',
+  'デザイン変更を検討する材料を集めること',
+  'ギャラリーの作品を追加・整理すること',
+  '料金や施術時間の案内を最新に保つこと',
+  'お知らせを出す日時を準備すること',
+  '編集途中の記事を保存して再開すること',
+  '変更内容を確認し、以前の状態に戻すこと',
+  '担当者ごとに必要な操作範囲を整理すること',
+  '障害や応答の遅れを早く把握すること',
+  '変更依頼の対応漏れを減らすこと',
+  '検索結果やSNSで伝わる内容を整えること',
+];
+const profileSituations = [
+  '誰が施術を担当するか知りたいとき',
+  'ネイリストの活動の背景や考え方に触れたいとき',
+  'ネイリストやサロンの雰囲気を短い映像で知りたいとき',
+  '希望のデザインに合う得意分野を確認したいとき',
+  '来店前に施術の手順を写真で見たいとき',
+  '施術台や待合の位置関係を見ておきたいとき',
+  '座席や施術道具を来店前に確認したいとき',
+  '自分と近いメニューを選んだ人の感想を読みたいとき',
+  '予約前に施術や支払いの疑問を解消したいとき',
+  '初めての予約に向けて当日の流れを確認したいとき',
+  'カウンセリングや仕上がり確認の進め方を知りたいとき',
+  '休業日やメニューの変更を事前に知りたいとき',
+  '自宅でのお手入れや色選びのヒントを探したいとき',
+  '施術を選んだ理由や仕上がりへの感想を詳しく読みたいとき',
+];
+const featurePrefixes: Record<string, string> = { X: 'B', V: 'A', D: 'C' };
+export const features: Feature[] = groups.flatMap((g,i)=>g.rows.map(([name,summary,difficulty,requiresBackend,requiresExternalService],j)=>{const id=(featurePrefixes[g.id]??g.id)+String(j+1).padStart(2,'0');const hasDemo=demoIds.has(id);return {id,name,summary,category:g.id,description:summary,benefits:[g.id==='P'?profileSituations[j]:g.id==='O'?operationsBenefits[j]:situations[i]],difficulty,requiresBackend,requiresExternalService,status:hasDemo?'demo':'planned',previewKey:hasDemo?id:undefined}}));
+export const canonicalFeatureId = (id: string) => {
+  if (/^X(?:0[1-9]|1[0-5])$/.test(id)) return 'B' + id.slice(1);
+  if (/^V(?:0[1-9]|[12][0-9]|3[0-2])$/.test(id)) return 'A' + id.slice(1);
+  if (/^D(?:0[1-9]|1[0-2])$/.test(id)) return 'C' + id.slice(1);
+  return id;
+};
+export const getFeature = (id: string) => features.find(feature => feature.id === canonicalFeatureId(id));
+export const legacyFeatureIds = features.filter(feature => featurePrefixes[feature.category]).map(feature => feature.category + feature.id.slice(1));
 export const getCategory = (id:string) => categories.find(c=>c.id===id)!;
 export function formatSelection(ids:readonly string[]) {
- const selected = features.filter(f=>ids.includes(f.id));
+ const selected = features.filter(f=>ids.some(id => canonicalFeatureId(id) === f.id));
  return ['Webサイト追加希望機能', ...categories.flatMap(c=>{const list=selected.filter(f=>f.category===c.id);return list.length?['',`【${c.name}】`,...list.map(f=>'・'+f.name)]:[]}), '',`合計：${selected.length}機能`].join('\n');
 }
 

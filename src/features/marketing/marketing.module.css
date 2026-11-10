@@ -1,0 +1,70 @@
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0;color:#382a31;overflow-wrap:anywhere}
+.layout :is(p,h4,h5,figure,blockquote,ol,ul){margin:0}
+.layout h4{font-size:1.06rem}.layout h5{font-size:.94rem}
+.stack{display:grid;gap:8px;min-width:0}.row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.layout input{display:block;width:100%;min-width:0;min-height:44px;padding:8px;border:1px solid #d8bdcb;border-radius:6px;color:#382a31;background:#fff}
+.layout label{display:grid;gap:5px;min-width:0}.layout label:has(input[type=checkbox]){display:flex;align-items:center;gap:8px}.layout input[type=checkbox]{width:20px;min-height:20px;flex:none;accent-color:#63394e}
+.layout :is(button,a,summary,input,select,[tabindex]):focus-visible{outline:2px solid #844363;outline-offset:3px}
+.layout summary{min-height:44px;cursor:pointer;padding:9px 0;font-weight:700}
+.layout details{border-bottom:1px solid #ead9e0;padding:0 0 8px}
+.layout details[open]>:not(summary){animation:appear .23s ease-out}
+.layout a{text-decoration:underline;text-underline-offset:3px}
+.layout .imageButton{display:block;width:100%;padding:0;border:0;overflow:hidden;border-radius:7px}
+.notice,.badge{background:#f4e7ed;color:#654052;border-radius:7px;padding:8px 11px}.badge{font-size:.73rem;padding:3px 7px;font-weight:700}
+.card{display:grid;gap:9px;align-content:start;background:#fff;border:1px solid #e9d7df;border-radius:11px;padding:10px;min-width:0}
+.cards,.editorial,.rail{display:grid;gap:12px;min-width:0;padding:0;list-style:none}
+.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.rail{grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px}
+.rail>li{scroll-snap-align:start}
+.editorial>li:first-child{background:#f2e4e8}
+.hero,.season{display:grid;gap:12px;padding:clamp(12px,3cqi,25px);background:#f4e6ea;border-radius:10px;min-width:0}
+.hero h4,.season h4{font:600 clamp(1.35rem,5cqi,2.35rem) 'Yu Mincho',serif}
+.season{animation:appear .25s ease-out}
+.preview{position:relative;isolation:isolate;overflow:hidden;border:1px solid #dec9d3;border-radius:10px;background:#fffaf7}
+.previewScroll{height:340px;overflow:auto;overscroll-behavior:contain;padding:12px}
+.mock{display:grid;gap:14px;padding:18px;background:#f1e7df;min-height:240px;align-content:center}
+.banner{display:grid;gap:9px;background:#f2e4ea;color:#4d2e40;padding:10px;border-radius:7px}
+.banner[data-kind=compact]{grid-template-columns:minmax(64px,30%) minmax(0,1fr);align-items:center}
+.banner[data-kind=float]{position:sticky;bottom:8px;max-width:350px;margin-left:auto;box-shadow:0 3px 18px #51344638}
+.banner[data-kind=bar]{padding:6px;border-radius:0;text-align:center}
+.banner[data-kind=bar] :is(img,small){display:none}
+.layout .primary{color:#fff;background:#64384f;border-color:#64384f}
+.layout button:disabled{opacity:.58;cursor:default}
+@container (min-width:560px){.hero{grid-template-columns:1.15fr 1fr;align-items:center}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.editorial{grid-template-columns:repeat(2,minmax(0,1fr))}.editorial>li:first-child{grid-column:1/-1;grid-template-columns:1.25fr 1fr;align-items:center}.rail{grid-auto-columns:38%}}
+@keyframes appear{from{opacity:.55;transform:translateY(4px)}}
+@media(prefers-reduced-motion:reduce){.layout *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.kicker{font-size:.77rem;letter-spacing:.1em;color:#75485e;font-weight:700}
+.floating{position:absolute;right:9px;bottom:9px;width:min(80%,360px)}
+.floating .banner{grid-template-columns:minmax(55px,26%) minmax(0,1fr);align-items:center}
+.preview:has(.floating) .previewScroll{padding-bottom:150px}
+.landing{display:grid;gap:16px;background:#fff;border:1px solid #e8d7df;border-radius:12px;padding:12px}
+.landing .hero img{max-height:340px;object-fit:cover}
+
+.social{display:grid;gap:12px;background:#e7efe8;padding:14px;border-radius:9px}
+.socialGrid,.fields{display:grid;gap:12px;min-width:0}
+.layout .socialLink{display:inline-flex;min-height:44px;justify-content:center;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;background:#236346;color:white;text-decoration:none;border-color:#236346}
+.social[data-line-mode="大型CTA"] .socialLink{min-height:60px;font-size:1.05rem}
+.qrPlaceholder{display:grid;place-items:center;gap:6px;min-height:104px;background:#f1edea;border:1px dashed #ad929e;border-radius:7px}
+.lineQR{max-width:100%;height:auto}
+.numbered{padding-left:24px}.numbered li{padding:6px}
+.paperStage{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;background:#eee8e4;border-radius:8px;padding:clamp(8px,3cqi,22px)}
+.printCard{display:grid;min-width:0;grid-template-columns:minmax(0,1fr) minmax(65px,35%);align-items:center;gap:clamp(5px,2cqi,14px);width:min(100%,460px);aspect-ratio:91/55;padding:clamp(8px,3cqi,20px);background:var(--paper);color:var(--ink);border:1px solid var(--edge);box-shadow:0 8px 20px #412a3026}
+.printCard h4{font-family:var(--type);font-size:clamp(1rem,4cqi,2rem);line-height:1.12}
+.printCard p,.printCard small{font-size:clamp(.68rem,2cqi,.86rem)}
+.printCard[data-format=pop]{width:min(100%,300px);aspect-ratio:105/148;grid-template-columns:1fr;justify-items:center;text-align:center;align-content:center}
+.printCard[data-format=pop] .qrCode{width:min(75%,190px)}
+.printCard[data-side="裏面"] .stack{border-top:1px solid var(--edge);padding-top:8px}
+.printCard img{max-height:70px;object-fit:cover}
+.qrCode{width:100%;background:#fff;color:#392b31}.qrCode svg{display:block;width:100%;height:auto}.qrCode p{padding:6px}
+.printFrame{display:block;width:100%;height:320px;border:1px solid #dec9d3;margin:10px 0}
+@container(min-width:530px){.socialGrid,.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.blogList{display:grid;gap:10px;list-style:none;padding:0}
+.blogList>li{grid-template-columns:minmax(70px,27%) minmax(0,1fr);align-items:center}
+.popupLayer{position:absolute;inset:0;display:grid;place-items:center;background:#36263168;padding:10px}
+.popupLayer[data-popup="画面下部"]{place-items:end center;background:transparent;pointer-events:none}
+.popupLayer[data-popup="画面下部"] .popup{pointer-events:auto}
+.popup{width:min(100%,410px);max-height:100%;overflow:auto;overscroll-behavior:contain;display:grid;gap:8px;background:#fffaf7;padding:14px;border:1px solid #dfc4cf;border-radius:10px;box-shadow:0 6px 22px #3c263745;animation:appear .2s ease-out}
+.popup img{max-height:110px;object-fit:cover}
+.layout [role=alert]{color:#832c47}
